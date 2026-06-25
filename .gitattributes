@@ -1,0 +1,2 @@
+ports/pinescript/**/*.pine -whitespace
+ports/pinescript/*.pine -whitespace

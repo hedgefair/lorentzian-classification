@@ -1,0 +1,17 @@
+[package]
+name = "lorentzian-classification-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Command-line interface for the Rust Lorentzian Classification port"
+
+[[bin]]
+name = "lorentzian-classification"
+path = "src/main.rs"
+
+[dependencies]
+csv.workspace = true
+lorentzian-classification-core.workspace = true

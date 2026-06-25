@@ -1,0 +1,27 @@
+[package]
+name = "lorentzian-classification-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Bit-faithful Rust port of the Lorentzian Classification indicator core (no runtime dependencies)"
+readme = "../README.md"
+keywords = ["trading", "indicator", "machine-learning", "lorentzian", "pinescript"]
+categories = ["algorithms", "finance"]
+
+[lib]
+name = "lorentzian_classification_core"
+
+[dependencies]
+csv.workspace = true
+
+# Runtime dependencies stay intentionally small. The CSV crate is used instead
+# of hand-rolled parsing so valid quoted CSV behaves like Python's stdlib csv.
+[dev-dependencies]
+criterion = { version = "0.5", default-features = false }
+
+[[bench]]
+name = "classification"
+harness = false

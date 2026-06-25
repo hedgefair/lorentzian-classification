@@ -1,0 +1,38 @@
+name: TradingView badges
+
+on:
+  schedule:
+    # Mondays 09:17 UTC, off the :00 boundary to avoid GitHub cron congestion.
+    - cron: "17 9 * * 1"
+  workflow_dispatch:
+
+# The refresh job rewrites README.md and pushes the result, so it needs
+# contents write — the only workflow in this repo with write scope.
+permissions:
+  contents: write
+
+concurrency:
+  group: tradingview-badges-main
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Refresh README social-metric badges
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: main
+      - name: Fetch metrics and rewrite README badges (stdlib only)
+        run: python3 .github/scripts/update_tradingview_badges.py
+      - name: Commit and push if the README changed
+        run: |
+          if git diff --quiet README.md; then
+            echo "README unchanged; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: refresh TradingView social-metric badges"
+          git push origin HEAD:main

@@ -1,0 +1,33 @@
+[project]
+name = "lorentzian-classification"
+version = "0.1.0"
+description = "Python CLI port of the Lorentzian Classification indicator"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "AI Edge" }]
+keywords = ["trading", "indicator", "machine-learning", "lorentzian", "pinescript"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+[project.urls]
+Repository = "https://github.com/artificial-intelligence-edge/lorentzian-classification"
+
+[project.scripts]
+lorentzian-classification = "lorentzian_classification.cli:main"
+
+[project.optional-dependencies]
+dataframe = ["pandas>=2"]
+
+[tool.setuptools.packages.find]
+include = ["lorentzian_classification*"]
+
+[tool.setuptools.package-data]
+lorentzian_classification = ["py.typed"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

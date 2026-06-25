@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "source": "TradingView/PineScript exports of the original Lorentzian Classification indicator",
+  "pine_sources": [
+    {
+      "name": "lcv6",
+      "path": "PineScript/Indicators/lcv6.pine",
+      "role": "canonical PineScript source for Python parity",
+      "sha256": "4cffc404ef8867744aece70e9f22184c527e6e34f7a7a3c7a224521253152542",
+      "code_sha256": "edd9f0c6af0c2f891074fdc82070a0be848f73ae952199f1241373ecb5fe18f9",
+      "allow_debug_markers": false
+    },
+    {
+      "name": "MLExtensions",
+      "path": "PineScript/Libraries/MLExtensions.pine",
+      "role": "Pine feature/filter/backtest library",
+      "sha256": "ad3cb87ba9e5d57f8d53549a8e0e59f27124c8d1d655caa7e058e8ce4e072292",
+      "allow_debug_markers": false
+    },
+    {
+      "name": "KernelFunctions",
+      "path": "PineScript/Libraries/KernelFunctions.pine",
+      "role": "Pine kernel regression library",
+      "sha256": "789b9405059a1ef3d306b18fe78b948344334559bcd56881b8f86caa31c90fce",
+      "allow_debug_markers": false
+    }
+  ],
+  "fixtures": [
+    {
+      "name": "oanda_eurusd_daily_full_history",
+      "filename": "pine_oanda_eurusd_1d_full_history.csv",
+      "settings": {
+        "include_full_history": true
+      }
+    },
+    {
+      "name": "tastyfx_eurusd_daily_full_history",
+      "filename": "pine_tastyfx_eurusd_1d_full_history.csv",
+      "settings": {
+        "include_full_history": true
+      }
+    },
+    {
+      "name": "coinbase_btcusd_daily_limited_history",
+      "filename": "pine_coinbase_btcusd_1d_limited_history.csv",
+      "settings": {
+        "include_full_history": false
+      }
+    },
+    {
+      "name": "btcusd_h1_trimmed_limited_history",
+      "filename": "pine_btcusd_h1_trimmed_limited_history.csv",
+      "settings": {
+        "include_full_history": false
+      }
+    }
+  ],
+  "required_uncovered_fixture_cases": [
+    {
+      "name": "coinbase_daily_show_exits",
+      "filename": "pine_coinbase_btcusd_1d_show_exits.csv",
+      "python_smoke_fixture": "pine_coinbase_btcusd_1d_limited_history.csv",
+      "proves": ["show exits enabled", "visible StopBuy/StopSell plot parity"],
+      "settings": {
+        "show_exits": true
+      }
+    },
+    {
+      "name": "coinbase_daily_dynamic_exits",
+      "filename": "pine_coinbase_btcusd_1d_dynamic_exits.csv",
+      "python_smoke_fixture": "pine_coinbase_btcusd_1d_limited_history.csv",
+      "proves": ["dynamic exits enabled", "dynamic exit stream parity"],
+      "settings": {
+        "use_dynamic_exits": true
+      }
+    },
+    {
+      "name": "oanda_daily_adx_filter",
+      "filename": "pine_oanda_eurusd_1d_adx_filter.csv",
+      "python_smoke_fixture": "pine_oanda_eurusd_1d_full_history.csv",
+      "proves": ["ADX filter enabled"],
+      "settings": {
+        "include_full_history": true,
+        "use_adx_filter": true,
+        "adx_threshold": 20
+      }
+    },
+    {
+      "name": "oanda_daily_ema_filter",
+      "filename": "pine_oanda_eurusd_1d_ema_filter.csv",
+      "python_smoke_fixture": "pine_oanda_eurusd_1d_full_history.csv",
+      "proves": ["EMA filter enabled"],
+      "settings": {
+        "include_full_history": true,
+        "use_ema_filter": true,
+        "ema_period": 200
+      }
+    },
+    {
+      "name": "oanda_daily_sma_filter",
+      "filename": "pine_oanda_eurusd_1d_sma_filter.csv",
+      "python_smoke_fixture": "pine_oanda_eurusd_1d_full_history.csv",
+      "proves": ["SMA filter enabled"],
+      "settings": {
+        "include_full_history": true,
+        "use_sma_filter": true,
+        "sma_period": 200
+      }
+    },
+    {
+      "name": "oanda_daily_kernel_smoothing",
+      "filename": "pine_oanda_eurusd_1d_kernel_smoothing.csv",
+      "python_smoke_fixture": "pine_oanda_eurusd_1d_full_history.csv",
+      "proves": ["kernel smoothing enabled", "kernel crossover alert parity"],
+      "settings": {
+        "include_full_history": true,
+        "use_kernel_smoothing": true
+      }
+    },
+    {
+      "name": "coinbase_daily_hlc3_source",
+      "filename": "pine_coinbase_btcusd_1d_hlc3_source.csv",
+      "python_smoke_fixture": "pine_coinbase_btcusd_1d_limited_history.csv",
+      "proves": ["alternate source values such as hlc3 or ohlc4"],
+      "settings": {
+        "source": "hlc3"
+      }
+    },
+    {
+      "name": "coinbase_daily_custom_features_count3",
+      "filename": "pine_coinbase_btcusd_1d_custom_features_count3.csv",
+      "python_smoke_fixture": "pine_coinbase_btcusd_1d_limited_history.csv",
+      "proves": ["custom feature definitions", "reduced feature count"],
+      "settings": {
+        "feature_count": 3,
+        "f1": "CCI:34:2",
+        "f2": "RSI:21:2",
+        "f3": "WT:8:10"
+      }
+    },
+    {
+      "name": "oanda_daily_alternate_kernel_params",
+      "filename": "pine_oanda_eurusd_1d_kernel_params.csv",
+      "python_smoke_fixture": "pine_oanda_eurusd_1d_full_history.csv",
+      "proves": ["alternate kernel parameters"],
+      "settings": {
+        "include_full_history": true,
+        "kernel_h": 12,
+        "kernel_r": 4.5,
+        "kernel_x": 20,
+        "kernel_lag": 1
+      }
+    },
+    {
+      "name": "coinbase_daily_worst_case",
+      "filename": "pine_coinbase_btcusd_1d_worst_case.csv",
+      "python_smoke_fixture": "pine_coinbase_btcusd_1d_limited_history.csv",
+      "proves": ["use worst case estimates"],
+      "settings": {
+        "use_worst_case": true
+      }
+    },
+    {
+      "name": "coinbase_daily_hide_trade_stats",
+      "filename": "pine_coinbase_btcusd_1d_hide_trade_stats.csv",
+      "python_smoke_fixture": "pine_coinbase_btcusd_1d_limited_history.csv",
+      "proves": ["show trade stats disabled", "trade-stat table display gate parity"],
+      "settings": {
+        "show_trade_stats": false
+      }
+    }
+  ]
+}

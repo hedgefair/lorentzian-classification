@@ -1,0 +1,38 @@
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+
+# Secrets and local settings
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Rust
+target/
+
+# Lean
+.lake/
+lake-packages/
+
+# Generated validation outputs
+artifacts/
+reports/
+tmp/
+
+# Claude Code session/scheduler artifacts
+.claude/

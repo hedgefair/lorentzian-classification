@@ -1,0 +1,24 @@
+[workspace]
+resolver = "2"
+members = [
+    "lorentzian-classification-core",
+    "lorentzian-classification-cli",
+]
+
+# Shared metadata inherited by member crates via `field.workspace = true`.
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.77"
+license = "MIT"
+repository = "https://github.com/artificial-intelligence-edge/lorentzian-classification"
+authors = ["AI Edge"]
+description = "Rust port of the Lorentzian Classification indicator, bit-faithful to the PineScript reference"
+
+[workspace.dependencies]
+lorentzian-classification-core = { path = "lorentzian-classification-core" }
+csv = "1.3"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
